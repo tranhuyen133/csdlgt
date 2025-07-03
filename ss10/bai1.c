@@ -6,40 +6,33 @@ typedef struct Node {
     struct Node* next;
 } Node;
 
-Node* createNode(int value) {
+Node* taoNode(int data) {
     Node* newNode = (Node*)malloc(sizeof(Node));
-    newNode->data = value;
+    newNode->data = data;
     newNode->next = NULL;
     return newNode;
 }
 
 int main() {
-    Node* head = NULL;
-    Node* temp;
-    Node* tail = NULL;
+    Node* head = taoNode(10);
+    head->next = taoNode(20);
+    head->next->next = taoNode(30);
+    head->next->next->next = taoNode(40);
+    head->next->next->next->next = taoNode(50);
 
-    for (int i = 0; i < 5; i++) {
-        int value;
-        printf("Nhap gia tri phan tu %d: ", i + 1);
-        scanf("%d", &value);
-        temp = createNode(value);
-        if (head == NULL) {
-            head = temp;
-            tail = temp;
-        } else {
-            tail->next = temp;
-            tail = temp;
-        }
+    Node* temp = head;
+    while (temp != NULL) {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+    printf("NULL\n");
+
+    temp = head;
+    while (temp != NULL) {
+        Node* next = temp->next;
+        free(temp);
+        temp = next;
     }
 
-    printf("Danh sach lien ket: ");
-    Node* current = head;
-    while (current != NULL) {
-        printf("%d", current->data);
-        if (current->next != NULL) printf("->");
-        current = current->next;
-    }
-    printf("->NULL\n");
-
-    while (head != NULL) {
-        Node* next =*
+    return 0;
+}
